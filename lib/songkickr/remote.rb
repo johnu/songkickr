@@ -85,6 +85,11 @@ module Songkickr
       Songkickr::ArtistResult.new result
     end
     
+    def artist(mbid)
+      result = self.class.get("/artists/mbid:#{mbid}.json")
+      Songkickr::Artist.new result["resultsPage"]["results"]["artist"]
+    end
+    
     # ==== User Events API
     # http://www.songkick.com/developer/upcoming-events-for-user
     #
