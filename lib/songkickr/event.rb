@@ -45,7 +45,7 @@ module Songkickr
       @status       = event_hash["status"]
       @display_name = event_hash["displayName"]
       @venue        = Songkickr::Venue.new event_hash["venue"]
-      @start        = start_hash_to_datetime event_hash["start"]
+      @start        = event_hash["start"]["datetime"]
       @uri          = event_hash["uri"]
       @performances = parse_performance event_hash["performance"]
       @id           = event_hash["id"]
