@@ -7,13 +7,13 @@ module Songkickr
       @id           = venue_hash["id"]
       @lat          = venue_hash["lat"]
       @lng          = venue_hash["lng"]
-      @lng          = venue_hash["zip"]
-      @lng          = venue_hash["uri"]
-      @lng          = venue_hash["street"]
-      @lng          = venue_hash["website"]
-      @lng          = venue_hash["phone"]
-      @lng          = venue_hash["capacity"]
-      @lng          = venue_hash["description"]
+      @zip          = venue_hash["zip"]
+      @uri          = venue_hash["uri"]
+      @street       = venue_hash["street"]
+      @website      = venue_hash["website"]
+      @phone        = venue_hash["phone"]
+      @capacity     = venue_hash["capacity"]
+      @description  = venue_hash["description"]
     end
   end
 end
