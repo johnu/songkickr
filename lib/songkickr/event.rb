@@ -56,7 +56,13 @@ module Songkickr
       
       # Takes the start hash and turns in into a DateTime object.
       def start_hash_to_datetime(start_hash)
-        datetime = DateTime.parse(start_hash["datetime"])
+        datetime = nil
+
+        if start_hash.has_key("datetime")
+          datetime = DateTime.parse("#{start_hash["datetime"]}")
+        else
+          datetime = DateTime.parse("#{start_hash["date"]} #{start_hash["time"]}")
+        end
       end
       
       # Builds a list of Performance objects.
