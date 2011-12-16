@@ -58,7 +58,7 @@ module Songkickr
       def start_hash_to_datetime(start_hash)
         datetime = nil
 
-        if start_hash.has_key("datetime")
+        if start_hash.has_key?("datetime")
           datetime = DateTime.parse("#{start_hash["datetime"]}")
         else
           datetime = DateTime.parse("#{start_hash["date"]} #{start_hash["time"]}")
