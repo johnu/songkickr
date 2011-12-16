@@ -45,7 +45,7 @@ module Songkickr
       @status       = event_hash["status"]
       @display_name = event_hash["displayName"]
       @venue        = Songkickr::Venue.new event_hash["venue"]
-      @start        = event_hash["start"]["datetime"]
+      @start        = start_hash_to_datetime event_hash["start"]
       @uri          = event_hash["uri"]
       @performances = parse_performance event_hash["performance"]
       @id           = event_hash["id"]
@@ -56,7 +56,7 @@ module Songkickr
       
       # Takes the start hash and turns in into a DateTime object.
       def start_hash_to_datetime(start_hash)
-        datetime = DateTime.parse("#{start_hash["date"]} #{start_hash["time"]}")
+        datetime = DateTime.parse(start_hash["datetime"])
       end
       
       # Builds a list of Performance objects.
