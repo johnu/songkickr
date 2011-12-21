@@ -37,7 +37,7 @@ module Songkickr
   #
   # http://www.songkick.com/developer/artist-search
   class Event
-    attr_accessor :type, :display_name, :location, :start, :uri, :id, :lat, :lng, :performances, :status, :venue, :tickets_uri
+    attr_accessor :type, :display_name, :location, :start, :start_local, :uri, :id, :lat, :lng, :performances, :status, :venue, :tickets_uri
     
     def initialize(event_hash)
       @type         = event_hash["type"]
@@ -46,6 +46,7 @@ module Songkickr
       @display_name = event_hash["displayName"]
       @venue        = Songkickr::Venue.new event_hash["venue"]
       @start        = start_hash_to_datetime event_hash["start"]
+      @start_local  = start_hash_to_local_datetime event_hash["start"]
       @uri          = event_hash["uri"]
       @performances = parse_performance event_hash["performance"]
       @id           = event_hash["id"]
@@ -54,15 +55,20 @@ module Songkickr
     
     protected
       
-      # Takes the start hash and turns in into a DateTime object.
+
       def start_hash_to_datetime(start_hash)
+        datetime = DateTime.parse("#{start_hash["date"]} #{start_hash["time"]}")
+      end
+
+      # Takes the start hash and turns in into a DateTime object.
+      def start_hash_to_local_datetime (start_hash)
         datetime = nil
 
-        if start_hash.has_key?("datetime") && !start_hash["datetime"].nil?
+        if start_hash.has_key?("datetime") && !start_hash["datetime"].nil? && !start_hash["datetime"].empty?
           datetime = DateTime.parse(start_hash["datetime"])
-        else
-          datetime = DateTime.parse("#{start_hash["date"]} #{start_hash["time"]}")
         end
+
+        datetime
       end
       
       # Builds a list of Performance objects.
